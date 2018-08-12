@@ -1,0 +1,14 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+#outer-box {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(141deg, #0fb8ad 10%, #1fc8db 51%, #2cb5e8 75%);
+}
+
+h1 {
+  text-align: center;
+}
