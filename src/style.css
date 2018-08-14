@@ -15,7 +15,6 @@
 #pomodoro-clock {
   width: 400px;
   height: 350px;
-  border: 1px dotted black;
   color: #ffd;
 }
 
@@ -60,4 +59,38 @@
 .current-timer {
   font-family: Impact, Charcoal, sans-serif;
   font-size: 25px;
+  letter-spacing: 5px;
+}
+
+.play-pause {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.play {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-left: 12px solid #ff5a00;
+  border-bottom: 6px solid transparent;
+  cursor: pointer;
+}
+
+.pause {
+  margin: 0px 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.reset {
+  width: 40px;
+  height: 15px;
+  box-shadow: 0px 0.5px 0px 0px #607b7d;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reset:active {
+  box-shadow: 0px 0px 0px 0px #aaae8e;
 }
