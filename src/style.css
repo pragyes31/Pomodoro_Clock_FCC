@@ -5,7 +5,7 @@
 
 #outer-box {
   width: 100vw;
-  height: 100vh;
+  height: 93vh;
   background: linear-gradient(141deg, #0fb8ad 10%, #1fc8db 51%, #2cb5e8 75%);
   display: flex;
   justify-content: center;
@@ -39,7 +39,8 @@
   align-items: center;
 }
 
-.plus-minus-img {
+.plus,
+.minus {
   width: 20px;
   height: 20px;
   margin: 15px;
