@@ -1,3 +1,6 @@
+const playBtn = document.querySelector("#play");
+console.log(playBtn);
+
 function pomodoroClock(sectionId) {
   const timerLengthNode = document.querySelector(
     `#${sectionId} .change-length .timer-length`
@@ -19,10 +22,18 @@ function pomodoroClock(sectionId) {
       console.log(typeof newLengthValue);
       newLengthValue -= 1;
       timerLengthNode.innerHTML = newLengthValue;
+    },
+    startTimer: function() {
+      const minutes = "";
+      const now = Date.now();
+      const then = now + minutes * 60 * 1000;
+      function timerFn() {}
+      setInterval(timerFn, 1000);
     }
   };
   plusBtn.addEventListener("click", () => PomoClock.addOne());
   minusBtn.addEventListener("click", () => PomoClock.minusOne());
+  playBtn.addEventListener("click", PomoClock.startTimer());
 
   return PomoClock;
 }
