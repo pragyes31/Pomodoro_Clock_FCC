@@ -3,11 +3,11 @@ User stories to complete:
 DONE 1.	Build the html structure 
 DONE 2.	the negative sign in break  length and session length section should decrease the respective value by 1.
 DONE 3.	the plus sign in break  length and session length section should increase the respective value by 1.
-4.	The break length and session length value should never be set to less than 1.
-5.	When the plus and minus button in session - length section is clicked, it should change the value in the timer section as well.
-6.	The play button should start the timer.
+DONE 4.	The break length and session length value should never be set to less than 1.
+DONE 5.	When the plus and minus button in session - length section is clicked, it should change the value in the timer section as well.
+DONE 6.	The play button should start the timer.
 7.	The pause button should pause the timer and on hitting play again it should start from the point where it was paused.
-8.	The reset button should reset the timer to 25: 00.
+8.	The reset button should reset the timer, session length and break length to default values.
 9.	When the timer is running, the plus minus button in both break length and session length should be disabled. 
 10.	When the session timer ends, the string session should change to break to display the users that break countdown is in progress and vice versa.
 11.	When the session timer ends, the break timer should start running and vice versa.
