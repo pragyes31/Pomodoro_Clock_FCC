@@ -1,8 +1,9 @@
 const playBtn = document.querySelector("#play");
 const timeLeft = document.querySelector(".current-timer");
 const resetBtn = document.querySelector("#reset");
-const sessionLengthValue = document.querySelector(".session");
-const breakLengthValue = document.querySelector(".break");
+const sessionLengthNode = document.querySelector(".session");
+const breakLengthNode = document.querySelector(".break");
+const currentTimer = document.querySelector("#current-clock");
 
 function pomodoroClock(sectionId) {
   const timerLengthNode = document.querySelector(
@@ -35,7 +36,7 @@ function pomodoroClock(sectionId) {
       }
     },
     startTimer: function(seconds) {
-      console.log(seconds);
+      let sessionState = true;
       let totalSecondsLeft = seconds;
       let counter = 0;
       function getMinsSecs() {
@@ -45,11 +46,30 @@ function pomodoroClock(sectionId) {
         return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
       }
       function timerFn() {
+        setTimeout(timerFn(), breakLengthNode.innerHTML * 60);
         totalSecondsLeft = seconds - counter;
         timeLeft.innerHTML = getMinsSecs();
         if (totalSecondsLeft < 1) {
           clearInterval(intervalFn);
-          PomoClock.startTimer(breakLengthValue.innerHTML * 60);
+          // if (sessionState) {
+          //   sessionState = false;
+          //   console.log(sessionState);
+          //   currentTimer.innerHTML = "Break";
+          //   PomoClock.startTimer(breakLengthNode.innerHTML * 60);
+          // } else {
+          //   sessionState = true;
+          //   currentTimer.innerHTML = "session";
+          //   PomoClock.startTimer(sessionLengthNode.innerHTML * 60);
+          // }
+          if ((currentTimer.innerHTML = "Session")) {
+            console.log("reached break");
+            currentTimer.innerHTML = "Break";
+            PomoClock.startTimer(breakLengthNode.innerHTML * 60);
+          } else if ((currentTimer.innerHTML = "Break")) {
+            console.log("reached session");
+            currentTimer.innerHTML = "Session";
+            PomoClock.startTimer(sessionLengthNode.innerHTML * 60);
+          }
         }
       }
       let intervalFn = setInterval(timerFn, 1000);
@@ -61,7 +81,7 @@ function pomodoroClock(sectionId) {
   plusBtn.addEventListener("click", () => PomoClock.addOne());
   minusBtn.addEventListener("click", () => PomoClock.minusOne());
   playBtn.addEventListener("click", () =>
-    PomoClock.startTimer(sessionLengthValue.innerHTML * 60)
+    PomoClock.startTimer(sessionLengthNode.innerHTML * 60)
   );
   resetBtn.addEventListener("click", () => PomoClock.resetClock());
 
