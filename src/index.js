@@ -2,26 +2,27 @@ function pomodoroClockFn() {
   const minusBtns = document.querySelectorAll(".minus");
   const plusBtns = document.querySelectorAll(".plus");
   const pomodoroClock = {
+    getTimerLength: function(timerType) {
+      return parseFloat(
+        document.querySelector(`#${timerType} .timer-length`).innerHTML
+      );
+    },
     addOne: function(btnId) {
       const timerType = btnId === "break-plus" ? "break" : "session";
       const timerLengthNode = document.querySelector(
         `#${timerType} .timer-length`
       );
-      let timerLength = parseFloat(
-        document.querySelector(`#${timerType} .timer-length`).innerHTML
-      );
-      if (timerLength >= 60) return;
-      timerLength += 1;
-      timerLengthNode.innerHTML = timerLength;
+      if (pomodoroClock.getTimerLength(timerType) >= 60) return;
+      timerLengthNode.innerHTML = pomodoroClock.getTimerLength(timerType) + 1;
     },
     subtractOne: function(btnId) {
       console.log(btnId);
       const timerType = btnId === "break-minus" ? "break" : "session";
-      console.log(timerType);
-      const timerLength = document.querySelector(`#${timerType} .timer-length`);
-      console.log(typeof timerLength.innerHTML);
-      if (timerLength.innerHTML <= 1) return;
-      timerLength.innerHTML -= 1;
+      const timerLengthNode = document.querySelector(
+        `#${timerType} .timer-length`
+      );
+      if (pomodoroClock.getTimerLength(timerType) <= 1) return;
+      timerLengthNode.innerHTML = pomodoroClock.getTimerLength(timerType) - 1;
     }
   };
   plusBtns.forEach(plusBtn =>
