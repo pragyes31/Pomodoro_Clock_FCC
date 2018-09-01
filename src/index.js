@@ -44,11 +44,15 @@ function pomodoroClockFn() {
       let nextClock =
         currentClockHeading.innerHTML === "Session"
           ? setTimeout(
-              pomodoroClock.startClock(breakLengthValueNode.innerHTML * 60),
+              pomodoroClock.startClock(
+                parseFloat(breakLengthValueNode.innerHTML) * 60
+              ),
               parseFloat(breakLengthValueNode.innerHTML) * 1000
             )
           : setTimeout(
-              pomodoroClock.startClock(sessionLengthValueNode.innerHTML * 60),
+              pomodoroClock.startClock(
+                parseFloat(sessionLengthValueNode.innerHTML) * 60
+              ),
               parseFloat(sessionLengthValueNode.innerHTML) * 1000
             );
       nextClock();
