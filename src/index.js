@@ -1,6 +1,22 @@
+let shouldLog = false;
+function log(...args) {
+  if (shouldLog) {
+    console.log(...args);
+  }
+}
+
 function pomodoroClockFn() {
   const minusBtns = document.querySelectorAll(".minus");
   const plusBtns = document.querySelectorAll(".plus");
+  const playBtn = document.querySelector("#play");
+  const sessionLengthValueNode = document.querySelector(
+    "#session-length .timer-length"
+  );
+  const breakLengthValueNode = document.querySelector(
+    "#break-length .timer-length"
+  );
+  const timeLeft = document.querySelector(".current-clock");
+  const currentClockHeading = document.querySelector("#current-clock-heading");
   const pomodoroClock = {
     getTimerLength: function(timerType) {
       return parseFloat(
@@ -23,6 +39,34 @@ function pomodoroClockFn() {
       );
       if (pomodoroClock.getTimerLength(timerType) <= 1) return;
       timerLengthNode.innerHTML = pomodoroClock.getTimerLength(timerType) - 1;
+    },
+    startClock: function(seconds) {
+      let nextClock =
+        currentClockHeading.innerHTML === "Session"
+          ? setTimeout(
+              pomodoroClock.startClock(breakLengthValueNode.innerHTML * 60),
+              breakLengthValueNode.innerHTML * 1000
+            )
+          : setTimeout(
+              pomodoroClock.startClock(sessionLengthValueNode.innerHTML * 60),
+              sessionLengthValueNode.innerHTML * 1000
+            );
+      let totalSecondsLeft = seconds;
+      let counter = 0;
+      function getMinsSecs() {
+        counter++;
+        let mins = Math.floor(totalSecondsLeft / 60); //Math.floor(totalSecondsLeft / 60);
+        let secs = Math.floor(totalSecondsLeft % 60);
+        return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+      }
+      function timerFn() {
+        totalSecondsLeft = seconds - counter;
+        timeLeft.innerHTML = getMinsSecs();
+        if (totalSecondsLeft < 1) {
+          clearInterval(intervalFn);
+        }
+      }
+      let intervalFn = setInterval(timerFn, 1000);
     }
   };
   plusBtns.forEach(plusBtn =>
@@ -32,6 +76,9 @@ function pomodoroClockFn() {
     minusBtn.addEventListener("click", e =>
       pomodoroClock.subtractOne(e.target.id)
     )
+  );
+  playBtn.addEventListener("click", () =>
+    pomodoroClock.startClock(sessionLengthValueNode.innerHTML * 60)
   );
   return pomodoroClock;
 }
@@ -76,7 +123,7 @@ const pomodoroClock = pomodoroClockFn();
 //       }
 //     },
 //     startTimer: function(seconds) {
-//       let sessionState = true;
+//
 //       let totalSecondsLeft = seconds;
 //       let counter = 0;
 //       function getMinsSecs() {

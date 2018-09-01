@@ -53,11 +53,11 @@
   margin-top: 40px;
 }
 
-#cuurent-clock {
+#current-clock-heading {
   margin-bottom: 10px;
 }
 
-.current-timer {
+.current-clock {
   font-family: Impact, Charcoal, sans-serif;
   font-size: 25px;
   letter-spacing: 5px;
