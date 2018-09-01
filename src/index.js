@@ -40,20 +40,19 @@ function pomodoroClockFn() {
       if (pomodoroClock.getTimerLength(timerType) <= 1) return;
       timerLengthNode.innerHTML = pomodoroClock.getTimerLength(timerType) - 1;
     },
+    timerLength: function(length, time) {
+      return parseFloat(length.innerHTML) * time;
+    },
     startClock: function(seconds) {
       let nextClock =
         currentClockHeading.innerHTML === "Session"
           ? setTimeout(
-              pomodoroClock.startClock(
-                parseFloat(breakLengthValueNode.innerHTML) * 60
-              ),
-              parseFloat(breakLengthValueNode.innerHTML) * 1000
+              pomodoroClock.startClock(timerLength(breakLengthValueNode, 60)),
+              timerLength(breakLengthValueNode, 1000)
             )
           : setTimeout(
-              pomodoroClock.startClock(
-                parseFloat(sessionLengthValueNode.innerHTML) * 60
-              ),
-              parseFloat(sessionLengthValueNode.innerHTML) * 1000
+              pomodoroClock.startClock(timerLength(sessionLengthValueNode, 60)),
+              timerLength(sessionLengthValueNode, 1000)
             );
       nextClock();
       let totalSecondsLeft = seconds;
