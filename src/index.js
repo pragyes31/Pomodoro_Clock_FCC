@@ -45,12 +45,13 @@ function pomodoroClockFn() {
         currentClockHeading.innerHTML === "Session"
           ? setTimeout(
               pomodoroClock.startClock(breakLengthValueNode.innerHTML * 60),
-              breakLengthValueNode.innerHTML * 1000
+              parseFloat(breakLengthValueNode.innerHTML) * 1000
             )
           : setTimeout(
               pomodoroClock.startClock(sessionLengthValueNode.innerHTML * 60),
-              sessionLengthValueNode.innerHTML * 1000
+              parseFloat(sessionLengthValueNode.innerHTML) * 1000
             );
+      nextClock();
       let totalSecondsLeft = seconds;
       let counter = 0;
       function getMinsSecs() {
@@ -78,7 +79,7 @@ function pomodoroClockFn() {
     )
   );
   playBtn.addEventListener("click", () =>
-    pomodoroClock.startClock(sessionLengthValueNode.innerHTML * 60)
+    pomodoroClock.startClock(parseFloat(sessionLengthValueNode.innerHTML) * 60)
   );
   return pomodoroClock;
 }
