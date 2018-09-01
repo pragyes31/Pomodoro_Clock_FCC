@@ -47,12 +47,16 @@ function pomodoroClockFn() {
       let nextClock =
         currentClockHeading.innerHTML === "Session"
           ? setTimeout(
-              pomodoroClock.startClock(timerLength(breakLengthValueNode, 60)),
-              timerLength(breakLengthValueNode, 1000)
+              pomodoroClock.startClock(
+                pomodoroClock.timerLength(breakLengthValueNode, 60)
+              ),
+              pomodoroClock.timerLength(breakLengthValueNode, 1000)
             )
           : setTimeout(
-              pomodoroClock.startClock(timerLength(sessionLengthValueNode, 60)),
-              timerLength(sessionLengthValueNode, 1000)
+              pomodoroClock.startClock(
+                pomodoroClock.timerLength(sessionLengthValueNode, 60)
+              ),
+              pomodoroClock.timerLength(sessionLengthValueNode, 1000)
             );
       nextClock();
       let totalSecondsLeft = seconds;
