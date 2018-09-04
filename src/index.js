@@ -44,21 +44,18 @@ function pomodoroClockFn() {
       return parseFloat(lengthNode.innerHTML);
     },
     startClock: function(timerType) {
-      let getCurrentTimer =
-        pomodoroClock.getTimerLength(timerType.innerHTML) * 60;
-      let seconds = getCurrentTimer;
+      let seconds = pomodoroClock.getTimerLength(timerType.innerHTML) * 60;
       let totalSecondsLeft = seconds;
       let counter = 0;
       console.log(counter, totalSecondsLeft);
       function getMinsSecs() {
-        counter++;
         let mins = Math.floor(totalSecondsLeft / 60);
         let secs = Math.floor(totalSecondsLeft % 60);
-        totalSecondsLeft = seconds - counter;
         return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
-        console.log(counter, totalSecondsLeft);
       }
       function timerFn() {
+        counter++;
+        totalSecondsLeft = seconds - counter;
         timeLeft.innerHTML = getMinsSecs();
         if (totalSecondsLeft < 1) {
           clearInterval(ClockInterval);
