@@ -51,16 +51,19 @@ function pomodoroClockFn() {
     counter: 0,
     timerFn: function(seconds) {
       let totalSecondsLeft = seconds - pomodoroClock.counter;
-      pomodoroClock.counter += 1;
+      pomodoroClock.counter++;
       timeLeft.innerHTML = pomodoroClock.getMinsSecs(totalSecondsLeft);
+      console.log(totalSecondsLeft, pomodoroClock.counter);
       if (totalSecondsLeft < 1) {
         clearInterval(ClockInterval);
       }
     },
-
     startClock: function(timerType) {
       let seconds = pomodoroClock.getTimerLength(timerType.innerHTML) * 60;
-      let ClockInterval = setInterval(pomodoroClock.timerFn(seconds), 1000);
+      let ClockInterval = setInterval(
+        () => pomodoroClock.timerFn(seconds, ClockInterval),
+        1000
+      );
     }
   };
   plusBtns.forEach(plusBtn =>
