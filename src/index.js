@@ -43,25 +43,24 @@ function pomodoroClockFn() {
     timerLength: function(lengthNode) {
       return parseFloat(lengthNode.innerHTML);
     },
+    getMinsSecs: function(totalSecondsLeft) {
+      let mins = Math.floor(totalSecondsLeft / 60);
+      let secs = Math.floor(totalSecondsLeft % 60);
+      return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+    },
+    counter: 0,
+    timerFn: function(seconds) {
+      let totalSecondsLeft = seconds - pomodoroClock.counter;
+      pomodoroClock.counter += 1;
+      timeLeft.innerHTML = pomodoroClock.getMinsSecs(totalSecondsLeft);
+      if (totalSecondsLeft < 1) {
+        clearInterval(ClockInterval);
+      }
+    },
+
     startClock: function(timerType) {
       let seconds = pomodoroClock.getTimerLength(timerType.innerHTML) * 60;
-      let totalSecondsLeft = seconds;
-      let counter = 0;
-      console.log(counter, totalSecondsLeft);
-      function getMinsSecs() {
-        let mins = Math.floor(totalSecondsLeft / 60);
-        let secs = Math.floor(totalSecondsLeft % 60);
-        return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
-      }
-      function timerFn() {
-        counter++;
-        totalSecondsLeft = seconds - counter;
-        timeLeft.innerHTML = getMinsSecs();
-        if (totalSecondsLeft < 1) {
-          clearInterval(ClockInterval);
-        }
-      }
-      let ClockInterval = setInterval(timerFn, 1000);
+      let ClockInterval = setInterval(pomodoroClock.timerFn(seconds), 1000);
     }
   };
   plusBtns.forEach(plusBtn =>
