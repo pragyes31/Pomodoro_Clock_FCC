@@ -43,37 +43,26 @@ function pomodoroClockFn() {
     timerLength: function(lengthNode) {
       return parseFloat(lengthNode.innerHTML);
     },
-    timerFn: function(seconds) {
+    startClock: function(timerType) {
+      let getCurrentTimer =
+        pomodoroClock.getTimerLength(timerType.innerHTML) * 60;
+      let seconds = getCurrentTimer;
       let totalSecondsLeft = seconds;
       let counter = 0;
-      let mins = Math.floor(totalSecondsLeft / 60); //Math.floor(totalSecondsLeft / 60);
-      let secs = Math.floor(totalSecondsLeft % 60);
-      let getTime = `${mins}:${secs < 10 ? "0" : ""}${secs}`;
-      counter++;
-      totalSecondsLeft = seconds - counter;
-      console.log("reached this point");
-      timeLeft.innerHTML = getTime;
-      if (totalSecondsLeft < 1) {
-        clearInterval(intervalFn);
+      function getMinsSecs() {
+        counter++;
+        let mins = Math.floor(totalSecondsLeft / 60);
+        let secs = Math.floor(totalSecondsLeft % 60);
+        totalSecondsLeft = seconds - counter;
+        return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
       }
-    },
-    startClock: function(seconds) {
-      // let nextClock =
-      //   currentClockHeading.innerHTML === "Session"
-      //     ? setTimeout(
-      //         pomodoroClock.startClock(
-      //           pomodoroClock.timerLength(breakLengthValueNode) * 60
-      //         ),
-      //         pomodoroClock.timerLength(breakLengthValueNode) * 1000
-      //       )
-      //     : setTimeout(
-      //         pomodoroClock.startClock(
-      //           pomodoroClock.timerLength(sessionLengthValueNode) * 60
-      //         ),
-      //         pomodoroClock.timerLength(sessionLengthValueNode) * 1000
-      //       );
-      //nextClock();
-      let intervalFn = setInterval(pomodoroClock.timerFn(seconds), 1000);
+      function timerFn() {
+        timeLeft.innerHTML = getMinsSecs();
+        if (totalSecondsLeft < 1) {
+          clearInterval(ClockInterval);
+        }
+      }
+      let ClockInterval = setInterval(timerFn(), 1000);
     }
   };
   plusBtns.forEach(plusBtn =>
@@ -85,9 +74,25 @@ function pomodoroClockFn() {
     )
   );
   playBtn.addEventListener("click", () =>
-    pomodoroClock.startClock(parseFloat(sessionLengthValueNode.innerHTML) * 60)
+    pomodoroClock.startClock(currentClockHeading)
   );
   return pomodoroClock;
 }
 
 const pomodoroClock = pomodoroClockFn();
+
+// let nextClock =
+//   currentClockHeading.innerHTML === "Session"
+//     ? setTimeout(
+//         pomodoroClock.startClock(
+//           pomodoroClock.timerLength(breakLengthValueNode) * 60
+//         ),
+//         pomodoroClock.timerLength(breakLengthValueNode) * 1000
+//       )
+//     : setTimeout(
+//         pomodoroClock.startClock(
+//           pomodoroClock.timerLength(sessionLengthValueNode) * 60
+//         ),
+//         pomodoroClock.timerLength(sessionLengthValueNode) * 1000
+//       );
+//nextClock();
