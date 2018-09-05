@@ -49,21 +49,18 @@ function pomodoroClockFn() {
       return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
     },
     counter: 0,
-    timerFn: function(seconds) {
-      let totalSecondsLeft = seconds - pomodoroClock.counter;
-      pomodoroClock.counter++;
-      timeLeft.innerHTML = pomodoroClock.getMinsSecs(totalSecondsLeft);
-      console.log(totalSecondsLeft, pomodoroClock.counter);
-      if (totalSecondsLeft < 1) {
-        clearInterval(ClockInterval);
-      }
-    },
     startClock: function(timerType) {
       let seconds = pomodoroClock.getTimerLength(timerType.innerHTML) * 60;
-      let ClockInterval = setInterval(
-        () => pomodoroClock.timerFn(seconds, ClockInterval),
-        1000
-      );
+      function timerFn() {
+        let totalSecondsLeft = seconds - pomodoroClock.counter;
+        pomodoroClock.counter++;
+        timeLeft.innerHTML = pomodoroClock.getMinsSecs(totalSecondsLeft);
+        console.log(totalSecondsLeft, pomodoroClock.counter);
+        if (totalSecondsLeft < 1) {
+          clearInterval(ClockInterval);
+        }
+      }
+      let ClockInterval = setInterval(() => timerFn(), 1000);
     }
   };
   plusBtns.forEach(plusBtn =>
