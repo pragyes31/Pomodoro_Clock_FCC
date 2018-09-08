@@ -4,6 +4,7 @@ function log(...args) {
     console.log(...args);
   }
 }
+const timeLeft = document.querySelector(".current-clock");
 
 function createPomodoroClock() {
   const minusBtns = document.querySelectorAll(".minus");
@@ -53,17 +54,10 @@ function createPomodoroClock() {
     clockInterval: "",
     startClock: function(timerType) {
       let clockInterval = setInterval(
-        pomodoroClock.timer(currentClockHeading.innerHTML),
+        timer(currentClockHeading.innerHTML),
         1000
       );
     },
-
-    // startClock: {
-    //   // clockInterval: setInterval(
-    //   //   pomodoroClock.timer(currentClockHeading.innerHTML),
-    //   //   1000
-    //   // )
-    //  },
     timer: function(timerType) {
       console.log("sdf", pomodoroClock.counter);
       let seconds = pomodoroClock.getTimerLength(timerType) * 60;
@@ -93,18 +87,15 @@ function createPomodoroClock() {
 
 const pomodoroClock = createPomodoroClock();
 
-// let nextClock =
-//   currentClockHeading.innerHTML === "Session"
-//     ? setTimeout(
-//         pomodoroClock.startClock(
-//           pomodoroClock.timerLength(breakLengthValueNode) * 60
-//         ),
-//         pomodoroClock.timerLength(breakLengthValueNode) * 1000
-//       )
-//     : setTimeout(
-//         pomodoroClock.startClock(
-//           pomodoroClock.timerLength(sessionLengthValueNode) * 60
-//         ),
-//         pomodoroClock.timerLength(sessionLengthValueNode) * 1000
-//       );
-//nextClock();
+function timer(timerType) {
+  console.log("sdf", pomodoroClock.counter);
+  let seconds = pomodoroClock.getTimerLength(timerType) * 60;
+  let totalSecondsLeft = seconds - pomodoroClock.counter;
+  console.log(totalSecondsLeft);
+  pomodoroClock.counter++;
+  timeLeft.innerHTML = pomodoroClock.getMinsSecs(totalSecondsLeft);
+  if (totalSecondsLeft < 1) {
+    console.log("clearInterval");
+    clearInterval(pomodoroClock.clockInterval);
+  }
+}
