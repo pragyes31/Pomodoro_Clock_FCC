@@ -5,7 +5,9 @@ function log(...args) {
   }
 }
 const timeLeft = document.querySelector(".current-clock");
-
+const sessionLengthValueNode = document.querySelector(
+  "#session-length .timer-length"
+);
 function createPomodoroClock() {
   const minusBtns = document.querySelectorAll(".minus");
   const plusBtns = document.querySelectorAll(".plus");
@@ -80,7 +82,7 @@ function createPomodoroClock() {
     )
   );
   playBtn.addEventListener("click", () =>
-    pomodoroClock.startClock(currentClockHeading.innerHTML)
+    startClock(currentClockHeading.innerHTML)
   );
   return pomodoroClock;
 }
@@ -98,4 +100,11 @@ function timer(timerType) {
     console.log("clearInterval");
     clearInterval(pomodoroClock.clockInterval);
   }
+}
+
+function startClock(timerType) {
+  let clockInterval = setInterval(
+    timer(sessionLengthValueNode.innerHTML),
+    1000
+  );
 }
